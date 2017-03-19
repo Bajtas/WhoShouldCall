@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
 
 <head>
 
@@ -49,7 +49,7 @@
         Menu <i class="fa fa-bars"></i>
     </button>
     <div class="container">
-        <a class="navbar-brand page-scroll" href="#page-top">Who Should Ring ?</a>
+        <a class="navbar-brand page-scroll" href="#page-top">Who Should Call ?</a>
         <div class="collapse navbar-collapse" id="navbarExample">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -71,7 +71,7 @@
     <div class="container">
         <img class="img-fluid" src="img/profile.png" alt="">
         <div class="intro-text">
-            <span class="name">WHO SHOULD RING?</span>
+            <span class="name">WHO SHOULD CALL?</span>
             <hr class="star-light">
             <span class="skills">Application to help peoples in companies to determine who&#39;s turn is to call and order food.</span>
             <span class="skills">For justice!</span>
@@ -126,55 +126,6 @@
                     <div id="success"></div>
                     <div class="row">
                         <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg">Send</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Register Section -->
-<section id="register">
-    <div class="container">
-        <h2 class="text-center">Register</h2>
-        <hr class="star-primary">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                <form name="register" action="#" th:action="@{/register}" th:object="${user}" method="post"
-                      id="registerForm" novalidate>
-                    <div class="row control-group">
-                        <div class="form-group col-xs-6 floating-label-form-group controls">
-                            <label>Login</label>
-                            <input th:field="*{login}" type="text" class="form-control" placeholder="Login" id="login"
-                                   required data-validation-required-message="Please enter your login.">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <div class="row control-group">
-                        <div class="form-group col-xs-6 floating-label-form-group controls">
-                            <label>Email Address</label>
-                            <input th:field="*{email}" type="email" class="form-control" placeholder="Email Address"
-                                   id="email" required
-                                   data-validation-required-message="Please enter your email address.">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <div class="row control-group">
-                        <div class="form-group col-xs-6 floating-label-form-group controls">
-                            <label>Phone Number</label>
-                            <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required
-                                   data-validation-required-message="Please enter your phone number.">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <br>
-                    <div id="success"></div>
-                    <div class="row">
-                        <div class="form-group col-xs-6">
                             <button type="submit" class="btn btn-success btn-lg">Send</button>
                         </div>
                     </div>

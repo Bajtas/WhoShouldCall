@@ -9,7 +9,7 @@
           content="Application to help peoples in companies to determine who&#39;s turn is to call and order food.">
     <meta name="author" content="Bartlomiej Zuber">
 
-    <title>Who should ring ? - Home</title>
+    <title>Who should call ? - Registration</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -49,17 +49,17 @@
         Menu <i class="fa fa-bars"></i>
     </button>
     <div class="container">
-        <a class="navbar-brand page-scroll" href="/home">Who Should Ring ?</a>
+        <a class="navbar-brand page-scroll" href="/home">Who Should Call ?</a>
         <div class="collapse navbar-collapse" id="navbarExample">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#login">Login</a>
+                    <a class="nav-link page-scroll" href="/home#login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#foodproviders">Food providers</a>
+                    <a class="nav-link page-scroll" href="/home#foodproviders">Food providers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#stats">Stats</a>
+                    <a class="nav-link page-scroll" href="/stats">Stats</a>
                 </li>
             </ul>
         </div>
@@ -70,7 +70,7 @@
 <header>
     <div class="container">
         <div class="intro-text">
-            <div class="container">
+            <div class="container" style="padding-top: 5%">
                 <h2 class="text-center">Register</h2>
                 <hr class="star-primary">
                 <div class="row">
@@ -119,7 +119,7 @@
                             </div>
 
                             <br>
-                            <div th:if="${response} != null">
+                            <div th:if="${response} != null" class="col-md-6">
                                 <div class="alert alert-danger">
                                     <strong>Danger!</strong> [[${response != null ? response.getMessage() : ""}]]
                                 </div>

@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.bajtas</groupId>
-    <artifactId>WhoShouldRing</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>WhoShouldCall</artifactId>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
 
-    <name>Who should ring</name>
+    <name>Who Should Call</name>
     <description>Project to help peoples in companies to determine who&#39;s turn is to call.</description>
 
     <parent>
