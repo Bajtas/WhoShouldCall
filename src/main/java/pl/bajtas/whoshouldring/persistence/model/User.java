@@ -19,6 +19,7 @@ public class User {
     private Date lastCall;
     private Boolean isOnline;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "b_role")
     private Role role;
 
     public Long getId() {

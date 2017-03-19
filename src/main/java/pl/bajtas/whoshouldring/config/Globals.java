@@ -22,4 +22,10 @@ public class Globals {
             return this.name;
         }
     }
+
+    public static final class DEFAULT_ACCOUNT {
+        public static final String ADMINISTRATOR_LOGIN = "root";
+        public static final String ADMINISTRATOR_PASSWORD = "123";
+        public static final String ADMINISTRATOR_EMAIL = "bajtas@gmail.com";
+    }
 }

@@ -1,6 +1,7 @@
 package pl.bajtas.whoshouldring.persistence.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Bajtas on 18.03.2017.
@@ -12,6 +13,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @OneToMany(mappedBy = "role")
+    private Set<User> users;
 
     public String getName() {
         return name;

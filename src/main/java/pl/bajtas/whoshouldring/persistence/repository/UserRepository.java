@@ -9,7 +9,7 @@ import pl.bajtas.whoshouldring.persistence.model.User;
  */
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
-    User findByLogin(String email);
+    User findByLogin(String login);
 
     User findByEmail(String email);
 
