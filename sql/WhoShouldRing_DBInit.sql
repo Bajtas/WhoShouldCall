@@ -56,7 +56,7 @@ CREATE TABLE "brole" (
   "name" TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE "User" (
+CREATE TABLE "buser" (
   "id" SERIAL PRIMARY KEY,
   "login" TEXT UNIQUE NOT NULL,
   "email" TEXT UNIQUE NOT NULL,
@@ -69,17 +69,17 @@ CREATE TABLE "User" (
   "last_call" TIMESTAMP
 );
 
-CREATE INDEX "idx_user__b_corpo" ON "User" ("b_corpo");
+CREATE INDEX "idx_buser__b_corpo" ON "buser" ("b_corpo");
 
-CREATE INDEX "idx_user__b_ring_queue" ON "User" ("b_ring_queue");
+CREATE INDEX "idx_buser__b_ring_queue" ON "buser" ("b_ring_queue");
 
-CREATE INDEX "idx_user__b_role" ON "User" ("b_role");
+CREATE INDEX "idx_buser__b_role" ON "buser" ("b_role");
 
-ALTER TABLE "User" ADD CONSTRAINT "fk_user__b_corpo" FOREIGN KEY ("b_corpo") REFERENCES "bcorpo" ("id");
+ALTER TABLE "buser" ADD CONSTRAINT "fk_buser__b_corpo" FOREIGN KEY ("b_corpo") REFERENCES "bcorpo" ("id");
 
-ALTER TABLE "User" ADD CONSTRAINT "fk_user__b_ring_queue" FOREIGN KEY ("b_ring_queue") REFERENCES "bringqueue" ("id");
+ALTER TABLE "buser" ADD CONSTRAINT "fk_buser__b_ring_queue" FOREIGN KEY ("b_ring_queue") REFERENCES "bringqueue" ("id");
 
-ALTER TABLE "User" ADD CONSTRAINT "fk_user__b_role" FOREIGN KEY ("b_role") REFERENCES "brole" ("id");
+ALTER TABLE "buser" ADD CONSTRAINT "fk_buser__b_role" FOREIGN KEY ("b_role") REFERENCES "brole" ("id");
 
 CREATE TABLE "buserstatistic" (
   "id" SERIAL PRIMARY KEY,
@@ -95,4 +95,4 @@ CREATE INDEX "idx_buserstatistic__b_user" ON "buserstatistic" ("b_user");
 
 ALTER TABLE "buserstatistic" ADD CONSTRAINT "fk_buserstatistic__b_food_provider" FOREIGN KEY ("b_food_provider") REFERENCES "bfoodprovider" ("id");
 
-ALTER TABLE "buserstatistic" ADD CONSTRAINT "fk_buserstatistic__b_user" FOREIGN KEY ("b_user") REFERENCES "User" ("id")
+ALTER TABLE "buserstatistic" ADD CONSTRAINT "fk_buserstatistic__b_user" FOREIGN KEY ("b_user") REFERENCES "buser" ("id")
