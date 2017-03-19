@@ -14,6 +14,7 @@ import pl.bajtas.whoshouldring.persistence.repository.UserRepository;
 import pl.bajtas.whoshouldring.util.Response;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Bajtas on 18.03.2017.
@@ -79,5 +80,9 @@ public class UserService implements ApplicationListener<ContextRefreshedEvent> {
 
 
         return ret;
+    }
+
+    public Set<User> getUsersRelatedWithQueue(String queueName) {
+        return userRepository.findByRingQueue_Name(queueName);
     }
 }

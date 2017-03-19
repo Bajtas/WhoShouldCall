@@ -21,6 +21,9 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "b_role")
     private Role role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "b_ring_queue")
+    private RingQueue ringQueue;
 
     public Long getId() {
         return id;
@@ -84,5 +87,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public RingQueue getRingQueue() {
+        return ringQueue;
+    }
+
+    public void setRingQueue(RingQueue ringQueue) {
+        this.ringQueue = ringQueue;
     }
 }

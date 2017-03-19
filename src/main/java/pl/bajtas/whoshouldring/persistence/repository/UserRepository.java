@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.bajtas.whoshouldring.persistence.model.User;
 
+import java.util.Set;
+
 /**
  * Created by Bajtas on 18.03.2017.
  */
@@ -14,4 +16,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     User findByEmail(String email);
 
     User findByEmailContainsIgnoreCase(String email);
+
+    Set<User> findByRingQueue_Name(String queueName);
 }
