@@ -42,7 +42,7 @@ public class Response {
     }
 
     public enum Type {
-        SUCCESS("SUCCESS"), ERROR("ERROR");
+        SUCCESS("SUCCESS"), ERROR("ERROR"), DATA_ERROR("DATA_ERROR");
 
         private final String name;
 

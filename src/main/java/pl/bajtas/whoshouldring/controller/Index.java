@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import pl.bajtas.whoshouldring.Service.UserService;
 import pl.bajtas.whoshouldring.persistence.model.User;
 import pl.bajtas.whoshouldring.util.Response;
@@ -25,16 +24,18 @@ public class Index {
         return "index";
     }
 
-    @RequestMapping(value = {"/register"})
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
-    @RequestMapping(value = "/registerUser", method = RequestMethod.POST)
-    public String registerUser(@ModelAttribute(value = "user") User user, ModelAndView modelAndView) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registerUser(@ModelAttribute(value = "user") User user, Model model) {
         Response response = userService.register(user);
-        modelAndView.addObject("response", "success");
+        model.addAttribute("response", response);
+        if (Response.Type.SUCCESS.equals(response.getType()))
+            return "login";
         return "register";
     }
 }

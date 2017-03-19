@@ -75,8 +75,9 @@
                 <hr class="star-primary">
                 <div class="row">
                     <div class="col-md-12 offset-md-3">
-                        <form name="registerForm" id="registerForm" action="#" th:action="@{/registerUser}"
-                              method="post" th:object="${user}" novalidate>
+                        <form th:action="@{/register}" action="#" method="post" th:object="${user}"
+                              data-toggle="validator" role="form">
+
                             <div class="row control-group">
                                 <div class="form-group col-md-6 floating-label-form-group controls">
                                     <label>Login</label>
@@ -86,28 +87,45 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
+
                             <div class="row control-group">
                                 <div class="form-group col-md-6 floating-label-form-group controls">
                                     <label>Password</label>
-                                    <input th:field="*{password}" type="password" class="form-control"
-                                           placeholder="Password" id="password" required
-                                           data-validation-required-message="Please enter your password.">
-                                    <p class="help-block text-danger"></p>
+                                    <input th:field="*{password}" type="password" data-minlength="6"
+                                           class="form-control" id="inputPassword" placeholder="Password" required>
+                                    <p class="help-block">Minimum of 6 characters</p>
                                 </div>
                             </div>
+
+                            <div class="row control-group">
+                                <div class="form-group col-md-6 floating-label-form-group controls">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control"
+                                           placeholder="Repeat password" id="password2" required
+                                           data-validation-required-message="Please repeat your password."
+                                           data-match="#inputPassword" data-match-error="Whoops, these don't match">
+                                    <p class="help-block with-errors"></p>
+                                </div>
+                            </div>
+
                             <div class="row control-group">
                                 <div class="form-group col-md-6 floating-label-form-group controls">
                                     <label>Email Address</label>
                                     <input th:field="*{email}" type="email" class="form-control"
-                                           placeholder="Email Address" id="email" required
-                                           data-validation-required-message="Please enter your email address.">
-                                    <p class="help-block text-danger"></p>
+                                           placeholder="Email Address" id="email"
+                                           data-error="Bruh, that email address is invalid" required>
+                                    <p class="help-block with-errors"></p>
                                 </div>
                             </div>
+
                             <br>
-                            <div id="success"></div>
+                            <div th:if="${response} != null">
+                                <div class="alert alert-danger">
+                                    <strong>Danger!</strong> [[${response != null ? response.getMessage() : ""}]]
+                                </div>
+                            </div>
                             <div class="row">
-                                <div class="form-group col-xs-12">
+                                <div class="form-group col-md-6">
                                     <button type="submit" class="btn btn-success btn-lg">Send</button>
                                 </div>
                             </div>
@@ -189,6 +207,7 @@
 <!-- Contact Form JavaScript -->
 <script src="js/jqBootstrapValidation.js"></script>
 <script src="js/contact_me.js"></script>
+<script src="js/bootstrapValidator.js"></script>
 
 <!-- Theme JavaScript -->
 <script src="js/freelancer.min.js"></script>

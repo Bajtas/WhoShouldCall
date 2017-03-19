@@ -57,15 +57,26 @@ public class UserService implements ApplicationListener<ContextRefreshedEvent> {
         user.setLastOnline(new Date());
         Response ret = new Response();
 
-        try {
-            userRepository.save(user);
+        User userExistByLogin = userRepository.findByLogin(user.getLogin());
+        User userExistByEmail = userRepository.findByEmail(user.getEmail());
 
-            ret.build(Response.Type.SUCCESS, "Registration successful!");
-        } catch (Exception e) {
-            LOG.error("Exception in UserService.register() - ", e);
+        if (userExistByLogin == null && userExistByEmail == null) {
+            try {
+                userRepository.save(user);
 
-            ret.build(Response.Type.ERROR, "Internal error.");
+                ret.build(Response.Type.SUCCESS, "Registration successful!");
+            } catch (Exception e) {
+                LOG.error("Exception in UserService.register() - ", e);
+
+                ret.build(Response.Type.ERROR, "Internal error.");
+            }
+        } else if (userExistByLogin != null) {
+            ret.build(Response.Type.DATA_ERROR, "Chosen login has been taken! Please take another one.");
+        } else {
+            ret.build(Response.Type.DATA_ERROR, "Chosen email has been taken! Please take another one.");
         }
+
+
 
         return ret;
     }
