@@ -86,6 +86,7 @@
         transform: translate(-50%, 0);
     }
 
+
     </style>
 
 </head>
@@ -112,10 +113,6 @@
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="#stats">Stats</a>
                 </li>
-                <li th:if="${isModeratorOrAdmin} != null" class="nav-item">
-                    <a class="nav-link page-scroll" th:href="@{/queueManager?name=} + ${queueName}"
-                       style="color: yellow;">Moderate</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -133,7 +130,40 @@
             <span class="skills">[[${chosenOne}]]</span>
         </div>
     </div>
+    <row>
+        <form th:action="@{/queueUpdate}" th:object="${queueData}" th:method="POST">
+            <div th:each="user : ${usersData}" class="form-group row" th:id="'user_' + ${user.getId()}">
+                <label for="lastCall" class="col-sm-2 col-form-label offset-sm-3" th:text="${user.login}"></label>
+                <div class="col-sm-2">
+                    <input type="date" th:type="date" class="form-control" id="lastCall" placeholder="Last call"
+                           th:value="${#dates.format(user.lastCall, 'yyyy-MM-dd')}" name="lastCall">
+                </div>
+                <button class="col-sm-1 btn btn-danger" type="button"
+                        th:onclick="'var elem = document.getElementById(\'' + user_ + ${user.getId()} + '\'); elem.parentNode.removeChild(elem);'">
+                    Remove
+                </button>
+            </div>
+            <div class="form-group row">
+                <button class="col-md-2 offset-sm-5 btn btn-warning" type="button">Add</button>
+            </div>
+
+            <!--<div class="form-group row" th:each="user:${usersData}>-->
+            <!--<label for="lastCall" class="col-sm-2 col-form-label"></label>-->
+            <!--<div class="col-sm-2">-->
+            <!--<input type="email" class="form-control" id="lastCall" placeholder="Email">-->
+            <!--</div>-->
+            <!--<label class="col-sm-2">Checkbox</label>-->
+            <!--</div>-->
+
+            <div class="form-group row">
+                <div class="offset-sm-2 col-sm-8">
+                    <button type="submit" class="btn btn-primary" style="margin-bottom: 2%;">Save</button>
+                </div>
+            </div>
+        </form>
+    </row>
 </header>
+
 
 <!-- Footer -->
 <footer class="text-center">
@@ -500,6 +530,7 @@
 });
 
 /*]]>*/
+
 
 </script>
 

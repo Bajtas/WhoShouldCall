@@ -21,8 +21,8 @@ public class UserDetailsConfig {
     public UserDetailsService userDetailsService() {
         JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
         jdbcImpl.setDataSource(dataSource);
-        jdbcImpl.setUsersByUsernameQuery("select username,password, enabled from users where username=?");
-        jdbcImpl.setAuthoritiesByUsernameQuery("select b.username, a.role from user_roles a, users b where b.username=? and a.userid=b.userid");
+        jdbcImpl.setUsersByUsernameQuery("SELECT login, password, true FROM buser WHERE login=?");
+        jdbcImpl.setAuthoritiesByUsernameQuery("SELECT u.login, r.name FROM brole r, buser u WHERE u.login=? AND u.b_role=r.id");
 
         return jdbcImpl;
     }

@@ -1,5 +1,7 @@
 package pl.bajtas.whoshouldring.persistence.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -16,6 +18,7 @@ public class User {
     private String email;
     private String password;
     private Date lastOnline;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastCall;
     private Boolean isOnline;
     @ManyToOne(fetch = FetchType.EAGER)

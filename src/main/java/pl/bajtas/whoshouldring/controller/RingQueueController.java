@@ -15,6 +15,8 @@ import pl.bajtas.whoshouldring.persistence.model.User;
 import pl.bajtas.whoshouldring.storage.queue.ChartWrapper;
 import pl.bajtas.whoshouldring.util.Queue;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +30,12 @@ public class RingQueueController {
     UserService userService;
 
     @RequestMapping(value = "/queue", method = RequestMethod.GET)
-    public String queueData(@RequestParam(value = "name", required = false, defaultValue = "") String queueName, Model model) {
+    public String queueData(@RequestParam(value = "name", required = false, defaultValue = "") String queueName, Model model, Principal principal) {
+        if (principal != null && StringUtils.isNotBlank(principal.getName())) {
+            model.addAttribute("isModeratorOrAdmin", true);
+            model.addAttribute("queueName", queueName);
+        }
+
         if (StringUtils.isBlank(queueName)) {
             return "queueSelect";
         }
@@ -41,5 +48,26 @@ public class RingQueueController {
         model.addAttribute("chosenOne", chosenOnes);
 
         return "ringQueue";
+    }
+
+    @RequestMapping(value = "/queueManager", method = RequestMethod.GET)
+    public String queueManagerData(@RequestParam(value = "name", required = false, defaultValue = "") String queueName, Model model, Principal principal) {
+        if (StringUtils.isBlank(queueName)) {
+            return "queueSelect";
+        }
+
+        List<User> users = Queue.toList(userService.getUsersRelatedWithQueue(queueName));
+        List<User> usersForManagerForm = new ArrayList<>(users);
+        ChartWrapper chartWrapper = Queue.processList(users);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String JSONDataSet = gson.toJson(chartWrapper);
+        String chosenOnes = Queue.getChosenOnes(chartWrapper.getCategory());
+        model.addAttribute("queueData", JSONDataSet);
+        model.addAttribute("chosenOne", chosenOnes);
+
+        Queue.sortAscEvenWithChosenOnes(usersForManagerForm);
+        model.addAttribute("usersData", usersForManagerForm);
+
+        return "queueManager";
     }
 }

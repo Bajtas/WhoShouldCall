@@ -108,4 +108,19 @@ public class Queue {
         }
         return ret;
     }
+
+    public static void sortAscEvenWithChosenOnes(List<User> usersForManagerForm) {
+        usersForManagerForm.sort((u1, u2) -> {
+            if (u1.getLastCall() == null)
+                return -1;
+            else if (u2.getLastCall() == null)
+                return 1;
+            if (u1.getLastCall().after(u2.getLastCall())) {
+                return 1;
+            } else if (u1.getLastCall().before(u2.getLastCall())) {
+                return -1;
+            }
+            return 0;
+        });
+    }
 }
