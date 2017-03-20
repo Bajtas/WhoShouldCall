@@ -27,11 +27,6 @@ public class RingQueueController {
     @Autowired
     UserService userService;
 
-//    @RequestMapping(value = "/queue", method = RequestMethod.GET)
-//    public String queue(Model model) {
-//        return "ringQueue";
-//    }
-
     @RequestMapping(value = "/queue", method = RequestMethod.GET)
     public String queueData(@RequestParam(value = "name", required = false, defaultValue = "") String queueName, Model model) {
         if (StringUtils.isBlank(queueName)) {
