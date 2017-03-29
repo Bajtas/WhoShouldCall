@@ -39,6 +39,7 @@ public class RingQueueController {
         if (StringUtils.isBlank(queueName)) {
             return "queueSelect";
         }
+
         List<User> users = Queue.toList(userService.getUsersRelatedWithQueue(queueName));
         ChartWrapper chartWrapper = Queue.processList(users);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -47,6 +48,13 @@ public class RingQueueController {
         model.addAttribute("queueData", JSONDataSet);
         model.addAttribute("chosenOne", chosenOnes);
 
+        return "ringQueue";
+    }
+
+    @RequestMapping(value = "/queues", method = RequestMethod.GET)
+    public String queueData(Model model, Principal principal) {
+        if (principal != null)
+            model.addAttribute("isLoggedIn", true);
         return "ringQueue";
     }
 

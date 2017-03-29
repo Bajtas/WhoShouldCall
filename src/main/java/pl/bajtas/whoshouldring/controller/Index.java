@@ -11,6 +11,8 @@ import pl.bajtas.whoshouldring.Service.UserService;
 import pl.bajtas.whoshouldring.persistence.model.User;
 import pl.bajtas.whoshouldring.util.Response;
 
+import java.security.Principal;
+
 /**
  * Created by Bajtas on 18.03.2017.
  */
@@ -23,7 +25,8 @@ public class Index {
     MailService mailService;
 
     @RequestMapping(value = {"/index", "/", "/home"})
-    public String index(Model model) {
+    public String index(Model model, Principal principal) {
+        SecurityController.setIsLoggedIn(model, principal);
         return "index";
     }
 

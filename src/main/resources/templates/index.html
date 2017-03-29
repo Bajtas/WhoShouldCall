@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
@@ -52,8 +53,17 @@
         <a class="navbar-brand page-scroll" href="#page-top">Who Should Call ?</a>
         <div class="collapse navbar-collapse" id="navbarExample">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item" th:if="${isLoggedIn}">
+                    <a class="nav-link page-scroll" th:href="@{/myQueue}" style="color: yellow;">My queue</a>
+                </li>
+                <li class="nav-item" th:if="${isLoggedIn}">
+                    <a class="nav-link page-scroll" th:href="@{/logout}">Logout</a>
+                </li>
+                <li class="nav-item" th:unless="${isLoggedIn}">
                     <a class="nav-link page-scroll" href="#login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#foodproviders">Queues</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="#foodproviders">Food providers</a>
@@ -81,7 +91,7 @@
 
 
 <!-- Login Section -->
-<section id="login">
+<section id="login" th:unless="${isLoggedIn}">
     <div class="container">
         <h2 class="text-center">Login</h2>
         <hr class="star-primary">
