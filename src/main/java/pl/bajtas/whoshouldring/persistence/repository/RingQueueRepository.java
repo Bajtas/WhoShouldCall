@@ -1,5 +1,7 @@
 package pl.bajtas.whoshouldring.persistence.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.bajtas.whoshouldring.persistence.model.RingQueue;
@@ -9,5 +11,5 @@ import pl.bajtas.whoshouldring.persistence.model.RingQueue;
  */
 @Repository
 public interface RingQueueRepository extends CrudRepository<RingQueue, Integer> {
-
+    Page<RingQueue> findAll(Pageable pageable);
 }

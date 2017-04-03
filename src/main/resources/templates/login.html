@@ -1,20 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
->
+<html lang="en">
 <head>
-    <title>Spring Security Example </title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username or password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<section id="login" th:unless="${isLoggedIn}" th:fragment="login">
+    <div class="container">
+        <h2 class="text-center">Login</h2>
+        <hr class="star-primary">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+
+
+                <form th:action="@{/login}" method="post">
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Login</label>
+                            <input type="text" class="form-control" placeholder="Login" id="login" name="username"
+                                   required
+                                   data-validation-required-message="Please enter your login.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Password" id="password"
+                                   name="password" required
+                                   data-validation-required-message="Please enter your password.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success" th:if="${param.logout}">You have been logged out.</div>
+                    <div id="error" th:if="${param.error}">Invalid username or password.</div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-success btn-lg">Log in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

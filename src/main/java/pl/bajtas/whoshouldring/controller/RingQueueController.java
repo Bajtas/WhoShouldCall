@@ -78,4 +78,10 @@ public class RingQueueController {
 
         return "queueManager";
     }
+
+    @RequestMapping(value = "/myQueue", method = RequestMethod.GET)
+    public String queueManagerData(Model model, Principal principal) {
+        String queueName = ringQueueService.getUserQueue(principal);
+        return StringUtils.EMPTY.equals(queueName) ? "queueSelect" : "redirect:queue?name=" + queueName;
+    }
 }
