@@ -4,13 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.bajtas.whoshouldring.Service.RingQueueService;
 import pl.bajtas.whoshouldring.Service.UserService;
+import pl.bajtas.whoshouldring.persistence.model.RingQueue;
 import pl.bajtas.whoshouldring.persistence.model.User;
 import pl.bajtas.whoshouldring.storage.queue.ChartWrapper;
 import pl.bajtas.whoshouldring.util.Queue;
@@ -53,8 +56,8 @@ public class RingQueueController {
 
     @RequestMapping(value = "/queues", method = RequestMethod.GET)
     public String queueData(Model model, Principal principal) {
-        if (principal != null)
-            model.addAttribute("isLoggedIn", true);
+        SecurityController.setIsLoggedIn(model, principal);
+
         return "ringQueue";
     }
 
@@ -72,6 +75,8 @@ public class RingQueueController {
         String chosenOnes = Queue.getChosenOnes(chartWrapper.getCategory());
         model.addAttribute("queueData", JSONDataSet);
         model.addAttribute("chosenOne", chosenOnes);
+        model.addAttribute("user", new User());
+        model.addAttribute("queueName", queueName);
 
         Queue.sortAscEvenWithChosenOnes(usersForManagerForm);
         model.addAttribute("usersData", usersForManagerForm);
@@ -81,7 +86,32 @@ public class RingQueueController {
 
     @RequestMapping(value = "/myQueue", method = RequestMethod.GET)
     public String queueManagerData(Model model, Principal principal) {
+        SecurityController.setIsLoggedIn(model, principal);
+
         String queueName = ringQueueService.getUserQueue(principal);
-        return StringUtils.EMPTY.equals(queueName) ? "queueSelect" : "redirect:queue?name=" + queueName;
+
+        return StringUtils.EMPTY.equals(queueName) ? "redirect:selectQueue" : "redirect:queue?name=" + queueName;
+    }
+
+    @RequestMapping(value = "/selectQueue", method = RequestMethod.GET)
+    public String selectQueue(Model model, Principal principal,
+                              @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+                              @RequestParam(value = "size", required = false, defaultValue = "20") Integer size) {
+        SecurityController.setIsLoggedIn(model, principal);
+
+        Page<RingQueue> ringQueues = ringQueueService.getRingQueues(page, size);
+        model.addAttribute("queues", ringQueues.getContent());
+
+        return "queueSelect";
+    }
+
+    @RequestMapping(value = "/addNewOne", method = RequestMethod.POST)
+    public String addNewOne(Model model, Principal principal, @ModelAttribute(value = "user") User user,
+                            @RequestParam(value = "queueName", required = false, defaultValue = "") String queueName) {
+        SecurityController.setIsLoggedIn(model, principal);
+        userService.assignUserToQueue(user, queueName);
+
+
+        return "queueSelect";
     }
 }

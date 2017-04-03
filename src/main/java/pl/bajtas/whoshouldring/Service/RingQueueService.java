@@ -23,6 +23,9 @@ public class RingQueueService {
     UserRepository userRepository;
 
     public String getUserQueue(Principal principal) {
+        if (principal == null)
+            return StringUtils.EMPTY;
+
         String userName = principal.getName();
 
         User user = userRepository.findByLogin(userName);

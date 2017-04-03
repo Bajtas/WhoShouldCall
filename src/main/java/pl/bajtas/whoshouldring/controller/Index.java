@@ -41,7 +41,6 @@ public class Index {
         Response response = userService.register(user);
         model.addAttribute("response", response);
         if (Response.Type.SUCCESS.equals(response.getType())) {
-
             return "login";
         }
         return "register";

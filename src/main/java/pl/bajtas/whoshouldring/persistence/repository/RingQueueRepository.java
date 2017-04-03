@@ -12,4 +12,6 @@ import pl.bajtas.whoshouldring.persistence.model.RingQueue;
 @Repository
 public interface RingQueueRepository extends CrudRepository<RingQueue, Integer> {
     Page<RingQueue> findAll(Pageable pageable);
+
+    RingQueue findByName(String queueName);
 }
