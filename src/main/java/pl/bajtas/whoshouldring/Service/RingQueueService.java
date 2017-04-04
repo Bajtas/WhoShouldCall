@@ -11,6 +11,7 @@ import pl.bajtas.whoshouldring.persistence.repository.RingQueueRepository;
 import pl.bajtas.whoshouldring.persistence.repository.UserRepository;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created by Bajtas on 19.03.2017.
@@ -37,5 +38,9 @@ public class RingQueueService {
         Page<RingQueue> queues = ringQueueRepository.findAll(new PageRequest(page, size));
 
         return queues;
+    }
+
+    public Object isUserQueue(List<User> users, Principal principal) {
+        return principal != null && users != null && users.stream().anyMatch(u -> u.getLogin().equals(principal.getName()));
     }
 }

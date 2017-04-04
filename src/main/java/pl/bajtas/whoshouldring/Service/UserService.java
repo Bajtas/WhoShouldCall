@@ -81,8 +81,6 @@ public class UserService implements ApplicationListener<ContextRefreshedEvent> {
             ret.build(Response.Type.DATA_ERROR, "Chosen email has been taken! Please take another one.");
         }
 
-
-
         return ret;
     }
 

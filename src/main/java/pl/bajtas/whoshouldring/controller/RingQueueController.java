@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.bajtas.whoshouldring.Service.RingQueueService;
 import pl.bajtas.whoshouldring.Service.UserService;
+import pl.bajtas.whoshouldring.persistence.model.Menu;
 import pl.bajtas.whoshouldring.persistence.model.RingQueue;
 import pl.bajtas.whoshouldring.persistence.model.User;
 import pl.bajtas.whoshouldring.storage.queue.ChartWrapper;
@@ -34,12 +36,14 @@ public class RingQueueController {
 
     @RequestMapping(value = "/queue", method = RequestMethod.GET)
     public String queueData(@RequestParam(value = "name", required = false, defaultValue = "") String queueName, Model model, Principal principal) {
+        SecurityController.setIsLoggedIn(model, principal);
         if (principal != null && StringUtils.isNotBlank(principal.getName())) {
-            model.addAttribute("isModeratorOrAdmin", true);
+            model.addAttribute("isModeratorOrAdmin", ((UsernamePasswordAuthenticationToken) principal).getAuthorities().stream().findFirst().isPresent());
             model.addAttribute("queueName", queueName);
         }
 
         if (StringUtils.isBlank(queueName)) {
+            model.addAttribute("menu", new Menu("QUEUE"));
             return "queueSelect";
         }
 
@@ -50,6 +54,8 @@ public class RingQueueController {
         String chosenOnes = Queue.getChosenOnes(chartWrapper.getCategory());
         model.addAttribute("queueData", JSONDataSet);
         model.addAttribute("chosenOne", chosenOnes);
+        model.addAttribute("menu", new Menu("QUEUE"));
+        model.addAttribute("isUserQueue", ringQueueService.isUserQueue(users, principal));
 
         return "ringQueue";
     }
@@ -66,7 +72,7 @@ public class RingQueueController {
         if (StringUtils.isBlank(queueName)) {
             return "queueSelect";
         }
-
+        SecurityController.setIsLoggedIn(model, principal);
         List<User> users = Queue.toList(userService.getUsersRelatedWithQueue(queueName));
         List<User> usersForManagerForm = new ArrayList<>(users);
         ChartWrapper chartWrapper = Queue.processList(users);
@@ -89,6 +95,7 @@ public class RingQueueController {
         SecurityController.setIsLoggedIn(model, principal);
 
         String queueName = ringQueueService.getUserQueue(principal);
+        model.addAttribute("menu", new Menu("MY_QUEUE"));
 
         return StringUtils.EMPTY.equals(queueName) ? "redirect:selectQueue" : "redirect:queue?name=" + queueName;
     }
@@ -101,6 +108,7 @@ public class RingQueueController {
 
         Page<RingQueue> ringQueues = ringQueueService.getRingQueues(page, size);
         model.addAttribute("queues", ringQueues.getContent());
+        model.addAttribute("menu", new Menu("SELECT_QUEUE"));
 
         return "queueSelect";
     }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.bajtas.whoshouldring.Service.MailService;
 import pl.bajtas.whoshouldring.Service.UserService;
+import pl.bajtas.whoshouldring.persistence.model.Menu;
 import pl.bajtas.whoshouldring.persistence.model.User;
 import pl.bajtas.whoshouldring.util.Response;
 
@@ -27,12 +28,14 @@ public class Index {
     @RequestMapping(value = {"/index", "/", "/home"})
     public String index(Model model, Principal principal) {
         SecurityController.setIsLoggedIn(model, principal);
+        model.addAttribute("menu", new Menu("INDEX"));
         return "index";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("menu", new Menu("REGISTER"));
         return "register";
     }
 
@@ -41,7 +44,7 @@ public class Index {
         Response response = userService.register(user);
         model.addAttribute("response", response);
         if (Response.Type.SUCCESS.equals(response.getType())) {
-            return "login";
+            return "redirect:/home#login";
         }
         return "register";
     }
