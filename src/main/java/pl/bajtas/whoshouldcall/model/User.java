@@ -19,7 +19,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "b_role")
     private UserRole userRole;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<QueueUser> queueUsers;
 
     public int getId() {
