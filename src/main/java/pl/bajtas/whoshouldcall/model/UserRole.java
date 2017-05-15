@@ -13,7 +13,7 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String name;
-    @OneToMany(mappedBy = "userRole")
+    @OneToMany(mappedBy = "userRole", cascade = CascadeType.PERSIST)
     private Set<User> users;
 
     public int getId() {
