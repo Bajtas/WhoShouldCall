@@ -9,4 +9,5 @@ import pl.bajtas.whoshouldcall.model.UserRole;
  */
 @Repository
 public interface UserRoleRepository extends CrudRepository<UserRole, Integer> {
+    UserRole findByName(String name);
 }

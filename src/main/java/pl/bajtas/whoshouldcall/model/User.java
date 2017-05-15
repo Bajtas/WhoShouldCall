@@ -19,7 +19,7 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "b_role")
     private UserRole userRole;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<QueueUser> queueUsers;
 
     public int getId() {
@@ -44,6 +44,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+    public Set<QueueUser> getQueueUsers() {
+        return queueUsers;
+    }
+
+    public void setQueueUsers(Set<QueueUser> queueUsers) {
+        this.queueUsers = queueUsers;
     }
 
     @Override

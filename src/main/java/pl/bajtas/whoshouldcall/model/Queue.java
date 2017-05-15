@@ -13,8 +13,8 @@ public class Queue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String company_name;
-    @OneToMany(mappedBy = "queue")
+    private String companyName;
+    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL)
     private Set<QueueUser> queueUsers;
 
     public int getId() {
@@ -33,11 +33,19 @@ public class Queue {
         this.name = name;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public Set<QueueUser> getQueueUsers() {
+        return queueUsers;
+    }
+
+    public void setQueueUsers(Set<QueueUser> queueUsers) {
+        this.queueUsers = queueUsers;
     }
 }
