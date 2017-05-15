@@ -96,11 +96,11 @@ public class UserRoleRepositoryTest {
         UserRole userRole = new UserRole();
         userRole.setName("Administrator");
         User user = new User();
-        user.setLogin("test1");
-        user.setPassword("test1");
+        user.setLogin("test3");
+        user.setPassword("test3");
         User user2 = new User();
-        user2.setLogin("test2");
-        user2.setPassword("test2");
+        user2.setLogin("test4");
+        user2.setPassword("test4");
 
         Set<User> users = new HashSet<>();
         users.add(user);
@@ -117,8 +117,8 @@ public class UserRoleRepositoryTest {
 
         userRoleRepository.delete(save);
 
-        User test1 = userRepository.findByLogin("test1");
-        User test2 = userRepository.findByLogin("test2");
+        User test1 = userRepository.findByLogin("test3");
+        User test2 = userRepository.findByLogin("test4");
 
         Assert.assertNotNull(test1);
         Assert.assertNotNull(test2);
