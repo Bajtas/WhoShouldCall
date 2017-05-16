@@ -3,47 +3,16 @@
       xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description"
-          content="Application to help peoples in companies to determine who&#39;s turn is to call and order food.">
-    <meta name="author" content="Bartlomiej Zuber">
+    <object th:include="/fragments/head/meta :: meta" th:remove="tag" />
+    <object th:include="/fragments/head/css :: css" th:remove="tag" />
 
     <title>Who should ring ? - Home</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
-          type="text/css">
-
-    <!-- Theme CSS -->
-    <link href="css/freelancer.css" rel="stylesheet">
-
-    <!-- Temporary navbar container fix until Bootstrap 4 is patched -->
-    <style>
-    .navbar-toggler {
-        z-index: 1;
-    }
-
-    @media (max-width: 576px) {
-        nav > .container {
-            width: 100%;
-        }
-    }
-
-    </style>
-
 </head>
 
 <body id="page-top" class="index">
 
 <!-- Navigation -->
-<div th:replace="navigation :: navigation"></div>
+<div th:include="/fragments/nav/nav :: nav" th:remove="tag"></div>
 
 <!-- Header -->
 <header>
@@ -60,16 +29,16 @@
 
 
 <!-- Login Section -->
-<div th:replace="login :: login"></div>
+<!--<div th:replace="login :: login"></div>-->
 
-<!-- Food Providers Grid Section -->
-<div th:replace="food_providers :: food_providers"></div>
+<!--&lt;!&ndash; Food Providers Grid Section &ndash;&gt;-->
+<!--<div th:replace="food_providers :: food_providers"></div>-->
 
-<!-- About Section -->
-<div th:replace="about :: about"></div>
+<!--&lt;!&ndash; About Section &ndash;&gt;-->
+<!--<div th:replace="about :: about"></div>-->
 
-<!-- Footer -->
-<div th:replace="footer :: footer"></div>
+<!--&lt;!&ndash; Footer &ndash;&gt;-->
+<!--<div th:replace="footer :: footer"></div>-->
 
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-top hidden-lg-up">
@@ -343,25 +312,13 @@
         </div>
     </div>
 </div>
-
-<!-- jQuery Version 3.1.1 -->
-<script src="lib/jquery/jquery.js"></script>
-
-<!-- Tether -->
-<script src="lib/tether/tether.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Plugin JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-<!-- Contact Form JavaScript -->
-<script src="js/jqBootstrapValidation.js"></script>
-<script src="js/contact_me.js"></script>
+<!--BOOTSTRAP-->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 <!-- Theme JavaScript -->
-<script src="js/freelancer.min.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 
