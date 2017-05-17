@@ -6,7 +6,7 @@
 	<groupId>pl.bajtas</groupId>
 	<artifactId>whoshouldcall</artifactId>
 	<version>0.1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>WhoShouldCall</name>
 	<description>Project to help peoples in companies to determine who&#39;s turn is to call for food.</description>
