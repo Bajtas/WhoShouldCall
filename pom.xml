@@ -5,7 +5,7 @@
 
 	<groupId>pl.bajtas</groupId>
 	<artifactId>whoshouldcall</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>WhoShouldCall</name>
