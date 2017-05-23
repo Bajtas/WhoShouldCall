@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.sql.DataSource;
 
 /**
  * Created by Bajtas on 15.05.2017.
@@ -13,10 +16,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    DataSource dataSource;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("select login, password, 'true' from buser where login=?")
+                .authoritiesByUsernameQuery("select login, name from buser inner join brole on buser.b_role = brole.id where login=?")
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override

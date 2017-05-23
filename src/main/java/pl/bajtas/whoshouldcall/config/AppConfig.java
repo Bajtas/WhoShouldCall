@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = {"pl.bajtas.whoshouldcall.repository"})
-@ComponentScan(basePackages = {"pl.bajtas.whoshouldcall.service", "pl.bajtas.whoshouldcall.controller"})
+@ComponentScan(basePackages = {"pl.bajtas.whoshouldcall.service", "pl.bajtas.whoshouldcall.controller", "pl.bajtas.whoshouldcall.service.seeder"})
 @EntityScan(basePackages = {"pl.bajtas.whoshouldcall.model"})
 public class AppConfig {
 

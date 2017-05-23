@@ -9,7 +9,12 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import pl.bajtas.whoshouldcall.service.seeder.DbSeeder;
+import pl.bajtas.whoshouldcall.service.seeder.UserRoleSeeder;
+import pl.bajtas.whoshouldcall.service.seeder.UserSeeder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -62,5 +67,14 @@ public class PersistanceConfig {
         transactionManager.setEntityManagerFactory(
                 entityManagerFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public List<DbSeeder> dbSeeders() {
+        List<DbSeeder> dbSeeders = new ArrayList<>();
+
+        dbSeeders.add(new UserRoleSeeder());
+        dbSeeders.add(new UserSeeder());
+        return dbSeeders;
     }
 }

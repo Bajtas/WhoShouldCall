@@ -22,6 +22,16 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<QueueUser> queueUsers;
 
+    public User() {
+
+    }
+
+    public User(String login, String password, UserRole userRole) {
+        this.login = login;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
     public int getId() {
         return id;
     }

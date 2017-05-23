@@ -16,6 +16,14 @@ public class UserRole {
     @OneToMany(mappedBy = "userRole", cascade = CascadeType.PERSIST)
     private Set<User> users;
 
+    public UserRole() {
+
+    }
+
+    public UserRole(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
