@@ -53,7 +53,7 @@ public class PersistanceConfig {
         //jpaProperties.put("hibernate.physical_naming_strategy", "pl.bajtas.whoshouldring.util.PhysicalNamingStrategyImpl");
         jpaProperties.put("hibernate.show_sql", "true");
         jpaProperties.put("hibernate.format_sql", "true");
-        jpaProperties.put("hibernate.hbm2ddl.auto", "create");
+        jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 

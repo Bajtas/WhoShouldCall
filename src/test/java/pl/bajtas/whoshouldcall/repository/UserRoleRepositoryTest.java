@@ -13,6 +13,7 @@ import pl.bajtas.whoshouldcall.model.User;
 import pl.bajtas.whoshouldcall.model.UserRole;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -84,9 +85,9 @@ public class UserRoleRepositoryTest {
         save.setName("potato");
         userRoleRepository.save(save);
 
-        UserRole byName = userRoleRepository.findByName(save.getName());
-        Assert.assertNotNull(byName);
-        Assert.assertEquals(save.getName(), byName.getName());
+        Optional<UserRole> byName = userRoleRepository.findByName(save.getName());
+        Assert.assertTrue(byName.isPresent());
+        Assert.assertEquals(save.getName(), byName.get().getName());
     }
 
     @Test
@@ -117,10 +118,10 @@ public class UserRoleRepositoryTest {
 
         userRoleRepository.delete(save);
 
-        User test1 = userRepository.findByLogin("test3");
-        User test2 = userRepository.findByLogin("test4");
+        Optional<User> test1 = userRepository.findByLogin("test3");
+        Optional<User> test2 = userRepository.findByLogin("test4");
 
-        Assert.assertNotNull(test1);
-        Assert.assertNotNull(test2);
+        Assert.assertTrue(test1.isPresent());
+        Assert.assertTrue(test2.isPresent());
     }
 }

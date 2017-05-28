@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.bajtas.whoshouldcall.service.UserService;
-import pl.bajtas.whoshouldcall.service.baseData.BaseDataHandler;
+import pl.bajtas.whoshouldcall.service.baseData.BaseDataFiller;
 
 /**
  * Created by Bajtas on 16.05.2017.
@@ -15,10 +15,12 @@ import pl.bajtas.whoshouldcall.service.baseData.BaseDataHandler;
 public class HomeController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private BaseDataFiller baseDataFiller;
 
     @RequestMapping(value="/", method= RequestMethod.GET)
     public String showHomePage(Model model) {
-        new BaseDataHandler().fill(model);
+        baseDataFiller.fill(model);
 
 
         return "index";

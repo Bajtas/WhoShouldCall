@@ -15,6 +15,7 @@ import pl.bajtas.whoshouldcall.model.User;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -83,10 +84,10 @@ public class QueueRepositoryTest {
         Assert.assertNotNull(queue.getQueueUsers());
         Assert.assertEquals(2, queue.getQueueUsers().size());
 
-        User byLogin = userRepository.findByLogin(user.getLogin());
+        Optional<User> byLogin = userRepository.findByLogin(user.getLogin());
 
-        Assert.assertNotNull(byLogin);
-        Assert.assertNotNull(byLogin.getQueueUsers());
-        Assert.assertEquals(2, byLogin.getQueueUsers().size());
+        Assert.assertTrue(byLogin.isPresent());
+        Assert.assertNotNull(byLogin.get().getQueueUsers());
+        Assert.assertEquals(2, byLogin.get().getQueueUsers().size());
     }
 }

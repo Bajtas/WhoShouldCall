@@ -6,6 +6,7 @@ import pl.bajtas.whoshouldcall.model.UserRole;
 import pl.bajtas.whoshouldcall.repository.UserRoleRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -34,7 +35,6 @@ public class UserRoleSeeder implements DbSeeder {
     }
 
     private boolean isRoleExist(String roleName) {
-        UserRole role = userRoleRepository.findByName(roleName);
-        return role != null;
+        return userRoleRepository.findByName(roleName).isPresent();
     }
 }

@@ -1,6 +1,5 @@
 package pl.bajtas.whoshouldcall.service.baseData;
 
-import antlr.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
  * Created by Bajtas on 23.05.2017.
  */
 @Service
-public class BaseDataHandler {
+public class BaseDataFiller {
     public void fill(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ArrayList<SimpleGrantedAuthority> authorities = new ArrayList(authentication.getAuthorities());

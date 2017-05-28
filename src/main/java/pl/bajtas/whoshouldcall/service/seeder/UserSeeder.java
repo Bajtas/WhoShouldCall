@@ -9,6 +9,7 @@ import pl.bajtas.whoshouldcall.repository.UserRepository;
 import pl.bajtas.whoshouldcall.repository.UserRoleRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -22,22 +23,21 @@ public class UserSeeder implements DbSeeder{
 
     @Override
     public void seed() {
-        UserRole admin = userRoleRepository.findByName("Admin");
-        UserRole moderator = userRoleRepository.findByName("Moderator");
-        UserRole user = userRoleRepository.findByName("User");
+        Optional<UserRole> admin = userRoleRepository.findByName("Admin");
+        Optional<UserRole> moderator = userRoleRepository.findByName("Moderator");
+        Optional<UserRole> user = userRoleRepository.findByName("User");
 
         Set<User> users = new HashSet<>();
         if (!isUserExist("admin"))
-            users.add(new User("admin", passwordEncoder.encode("root"), admin));
+            users.add(new User("admin", passwordEncoder.encode("root"), admin.get()));
         if (!isUserExist("mod"))
-            users.add(new User("mod", passwordEncoder.encode("root"), moderator));
+            users.add(new User("mod", passwordEncoder.encode("root"), moderator.get()));
         if (!isUserExist("user"))
-            users.add(new User("user", passwordEncoder.encode("root"), user));
+            users.add(new User("user", passwordEncoder.encode("root"), user.get()));
         userRepository.saveAll(users);
     }
 
     private boolean isUserExist(String userLogin) {
-        User user = userRepository.findByLogin(userLogin);
-        return user != null;
+        return userRepository.findByLogin(userLogin).isPresent();
     }
 }
