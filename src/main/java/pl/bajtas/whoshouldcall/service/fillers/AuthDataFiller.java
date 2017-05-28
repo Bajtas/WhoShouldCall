@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by Bajtas on 23.05.2017.
  */
 @Service
-public class BaseDataFiller {
+public class AuthDataFiller implements DataFiller {
     public void fill(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ArrayList<SimpleGrantedAuthority> authorities = new ArrayList(authentication.getAuthorities());

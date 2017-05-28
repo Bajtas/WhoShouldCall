@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.bajtas.whoshouldcall.model.User;
 import pl.bajtas.whoshouldcall.service.UserService;
-import pl.bajtas.whoshouldcall.service.baseData.BaseDataFiller;
+import pl.bajtas.whoshouldcall.service.baseData.AuthDataFiller;
 import pl.bajtas.whoshouldcall.util.exception.DefaultUserRoleNotFound;
 
 /**
@@ -18,6 +18,8 @@ import pl.bajtas.whoshouldcall.util.exception.DefaultUserRoleNotFound;
 public class RegisterController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuthDataFiller authDataFiller;
 
     @ModelAttribute(value = "user")
     public User newUser()
@@ -27,7 +29,7 @@ public class RegisterController {
 
     @RequestMapping(value="/register", method= RequestMethod.GET)
     public String showRegisterPage(Model model) {
-        new BaseDataFiller().fill(model);
+        authDataFiller.fill(model);
         return "register";
     }
 
