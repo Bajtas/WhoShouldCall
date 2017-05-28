@@ -37,8 +37,9 @@ public class UserService implements ApplicationListener<ContextRefreshedEvent> {
 
     public void registerNewUser(Model model, User user) throws DefaultUserRoleNotFound {
         Optional<User> existingUser = userRepository.findByLogin(user.getLogin());
-        if (!existingUser.isPresent()) {
+        if (existingUser.isPresent()) {
             model.addAttribute("error", "User with login: " + user.getLogin() + " exist!");
+            return;
         }
 
         UserRole userRole = userRoleRepository.findByName(Globals.USER_ROLES.USER.toString()).orElseThrow(DefaultUserRoleNotFound::new);

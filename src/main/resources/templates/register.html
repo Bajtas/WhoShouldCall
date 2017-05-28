@@ -22,6 +22,10 @@
                 <hr class="star-primary">
                 <div class="row">
                     <div class="col-md-12 offset-md-3">
+                        <div class="col-md-6 alert alert-danger" th:if="${error != null}">
+                            <span th:text="${error}"></span>
+                        </div>
+
                         <form th:action="@{/register}" action="#" method="post" th:object="${user}"
                               data-toggle="validator" role="form">
 

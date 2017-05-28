@@ -22,6 +22,4 @@ public class UserController {
     public String showUserPage(@PathVariable String username, Model model) {
         return "asdas";
     }
-
-
 }

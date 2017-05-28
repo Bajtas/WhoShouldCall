@@ -34,7 +34,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value="/register", method= RequestMethod.POST)
-    public String showRegisterPage(Model model, @ModelAttribute("user") User user) throws DefaultUserRoleNotFound {
+    public String getFormDataAndRegisterUser(Model model, @ModelAttribute("user") User user) throws DefaultUserRoleNotFound {
         userService.registerNewUser(model, user);
         return "register";
     }
