@@ -3,6 +3,7 @@ package pl.bajtas.whoshouldcall.model;
 import com.google.common.base.Objects;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -19,8 +20,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "b_role")
     private UserRole userRole;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<QueueUser> queueUsers;
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "b_queue")
+    private Queue queue;
+    private Date lastCall;
 
     public User() {
 
@@ -64,12 +67,20 @@ public class User {
         this.userRole = userRole;
     }
 
-    public Set<QueueUser> getQueueUsers() {
-        return queueUsers;
+    public Date getLastCall() {
+        return lastCall;
     }
 
-    public void setQueueUsers(Set<QueueUser> queueUsers) {
-        this.queueUsers = queueUsers;
+    public void setLastCall(Date lastCall) {
+        this.lastCall = lastCall;
+    }
+
+    public Queue getQueue() {
+        return queue;
+    }
+
+    public void setQueue(Queue queue) {
+        this.queue = queue;
     }
 
     @Override
@@ -84,6 +95,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, login, password, userRole, queueUsers);
+        return Objects.hashCode(id, login, password, userRole);
     }
 }

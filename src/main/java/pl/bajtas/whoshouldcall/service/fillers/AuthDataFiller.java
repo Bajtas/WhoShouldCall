@@ -31,4 +31,17 @@ public class AuthDataFiller implements DataFiller {
         model.addAttribute("auth", auth);
         model.addAttribute("principal", userLogin);
     }
+
+    public String getUserLoginFromAuthData() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        ArrayList<SimpleGrantedAuthority> authorities = new ArrayList(authentication.getAuthorities());
+        Object principal = authentication.getPrincipal();
+        String userLogin = "";
+        if (principal instanceof User) {
+            User user = (User) principal;
+            userLogin = user.getUsername();
+        }
+
+        return userLogin;
+    }
 }

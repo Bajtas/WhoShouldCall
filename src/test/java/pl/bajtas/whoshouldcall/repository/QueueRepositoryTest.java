@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import pl.bajtas.whoshouldcall.config.AppConfig;
 import pl.bajtas.whoshouldcall.config.PersistanceConfig;
 import pl.bajtas.whoshouldcall.model.Queue;
-import pl.bajtas.whoshouldcall.model.QueueUser;
 import pl.bajtas.whoshouldcall.model.User;
 
 import java.util.Date;
@@ -28,8 +27,6 @@ public class QueueRepositoryTest {
     @Autowired
     QueueRepository queueRepository;
     @Autowired
-    QueueUserRepository queueUserRepository;
-    @Autowired
     UserRepository userRepository;
 
     @Test
@@ -44,7 +41,7 @@ public class QueueRepositoryTest {
 
         Assert.assertNotNull(save);
         Assert.assertTrue(save.getId() >= 0);
-        Assert.assertNull(queue.getQueueUsers());
+        Assert.assertNull(queue.getUsers());
         Assert.assertEquals(queue.getName(), save.getName());
         Assert.assertEquals(queue.getCompanyName(), save.getCompanyName());
     }
@@ -53,41 +50,32 @@ public class QueueRepositoryTest {
     public void addNewQueueWithUsers() {
         Assert.assertNotNull(queueRepository);
         Queue queue = new Queue();
-
         queue.setName("test");
         queue.setCompanyName("test");
-
-        QueueUser queueUser1 = new QueueUser();
-        queueUser1.setLastCall(new Date());
-
-        QueueUser queueUser2 = new QueueUser();
-        queueUser1.setLastCall(new Date());
 
         User user = new User();
         user.setLogin("test");
         user.setPassword("test");
+        user.setLastCall(new Date());
+
         User savedUser = userRepository.save(user);
         Assert.assertNotNull(savedUser);
         Assert.assertTrue(savedUser.getId() >= 0);
 
-        queueUser1.setUser(user);
-        queueUser2.setUser(user);
+        Set<User> users = new HashSet<>();
+        savedUser.setQueue(queue);
+        users.add(savedUser);
 
-        Set<QueueUser> queueUserSet = new HashSet<>();
-        queueUserSet.add(queueUser1);
-        queueUserSet.add(queueUser2);
-        queue.setQueueUsers(queueUserSet);
+        queue.setUsers(users);
 
-        Queue save = queueRepository.save(queue);
-
-        Assert.assertNotNull(save);
-        Assert.assertNotNull(queue.getQueueUsers());
-        Assert.assertEquals(2, queue.getQueueUsers().size());
+        userRepository.save(savedUser);
+        Assert.assertNotNull(savedUser.getQueue());
+        Assert.assertNotNull(savedUser.getQueue().getUsers());
+        Assert.assertEquals(1, savedUser.getQueue().getUsers().size());
 
         Optional<User> byLogin = userRepository.findByLogin(user.getLogin());
 
         Assert.assertTrue(byLogin.isPresent());
-        Assert.assertNotNull(byLogin.get().getQueueUsers());
-        Assert.assertEquals(2, byLogin.get().getQueueUsers().size());
+        Assert.assertNotNull(byLogin.get().getQueue());
     }
 }

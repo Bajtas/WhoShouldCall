@@ -14,8 +14,8 @@ public class Queue {
     private int id;
     private String name;
     private String companyName;
-    @OneToMany(mappedBy = "queue", cascade = CascadeType.ALL)
-    private Set<QueueUser> queueUsers;
+    @OneToMany(mappedBy = "queue")
+    private Set<User> users;
 
     public int getId() {
         return id;
@@ -41,11 +41,11 @@ public class Queue {
         this.companyName = companyName;
     }
 
-    public Set<QueueUser> getQueueUsers() {
-        return queueUsers;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setQueueUsers(Set<QueueUser> queueUsers) {
-        this.queueUsers = queueUsers;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

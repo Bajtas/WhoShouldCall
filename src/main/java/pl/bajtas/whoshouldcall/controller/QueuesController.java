@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.bajtas.whoshouldcall.service.QueueService;
 import pl.bajtas.whoshouldcall.service.baseData.AuthDataFiller;
 
 /**
@@ -15,9 +16,13 @@ public class QueuesController {
     @Autowired
     private AuthDataFiller authDataFiller;
 
-    @RequestMapping(value="/queues", method= RequestMethod.GET)
-    public String showQueuesPage(Model model) {
+    @Autowired
+    private QueueService queueService;
+
+    @RequestMapping(value="/queue", method= RequestMethod.GET)
+    public String showMyQueuePage(Model model) {
         authDataFiller.fill(model);
-        return "queues";
+        queueService.fillQueueData(model, authDataFiller.getUserLoginFromAuthData());
+        return "queue";
     }
 }
