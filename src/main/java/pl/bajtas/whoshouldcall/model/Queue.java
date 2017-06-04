@@ -2,6 +2,7 @@ package pl.bajtas.whoshouldcall.model;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.SortedSet;
 
 /**
  * Created by Bajtas on 13.05.2017.

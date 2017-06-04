@@ -27,10 +27,10 @@ public class PersistanceConfig {
     @Bean
     public DataSource dataSource() {
         DataSource dataSource = new DataSource();
-        dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:tcp://localhost/~/test3;DATABASE_TO_UPPER=false");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setUrl("jdbc:postgresql://bajtas.sytes.net:5432/WhoShouldCall");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("ISeNce");
         return dataSource;
     }
 
@@ -48,12 +48,12 @@ public class PersistanceConfig {
 
         Properties jpaProperties = new Properties();
 
-        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         //jpaProperties.put("spring.jpa.hibernate.naming.physical-strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         //jpaProperties.put("hibernate.physical_naming_strategy", "pl.bajtas.whoshouldring.util.PhysicalNamingStrategyImpl");
         jpaProperties.put("hibernate.show_sql", "true");
         jpaProperties.put("hibernate.format_sql", "true");
-        jpaProperties.put("hibernate.hbm2ddl.auto", "create");
+        //jpaProperties.put("hibernate.hbm2ddl.auto", "create");
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 

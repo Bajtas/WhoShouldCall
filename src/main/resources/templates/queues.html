@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"
-      xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 
 <head>
+
     <object th:include="/fragments/head/meta :: meta" th:remove="tag" />
     <object th:include="/fragments/head/css :: css" th:remove="tag" />
 
-    <title>Who should ring ? - Home</title>
+    <title>Who should ring ? - Queues</title>
+
 </head>
 
 <body id="page-top" class="index">
@@ -17,24 +18,25 @@
 <!-- Header -->
 <header>
     <div class="container">
-        <img class="img-fluid" th:src="@{/static/img/profile.png}" alt="">
+        <img class="img-fluid" src="img/profile.png" alt="">
         <div class="intro-text">
-            <span class="name">WHO SHOULD CALL?</span>
+            <span class="name">Queues</span>
             <hr class="star-light">
-            <span class="skills">Application to help peoples in companies to determine who&#39;s turn is to call and order food.</span>
+
+            <table style="margin-left:auto;margin-right:auto">
+                <tr>
+                    <th>Queue name</th>
+                    <th>Company</th>
+                </tr>
+                <tr th:each="queue : ${queues}">
+                    <td th:text="${queue.name}"></td>
+                    <td th:text="${queue.companyName}"></td>
+                </tr>
+            </table>
+
         </div>
     </div>
 </header>
-
-
-<!-- Login Section -->
-<!--<div th:replace="login :: login"></div>-->
-
-<!--&lt;!&ndash; Food Providers Grid Section &ndash;&gt;-->
-<!--<div th:replace="food_providers :: food_providers"></div>-->
-
-<!--&lt;!&ndash; About Section &ndash;&gt;-->
-<!--<div th:replace="about :: about"></div>-->
 
 <!-- Footer -->
 <div th:replace="/fragments/footer/footer :: footer"></div>
