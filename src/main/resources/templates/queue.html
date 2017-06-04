@@ -18,38 +18,8 @@
 <!-- Header -->
 <header>
     <div class="container">
-        <img class="img-fluid" src="img/profile.png" alt="">
-        <div class="intro-text">
-            <span class="name">Queue</span>
-            <hr class="star-light">
-
-            <div th:if="${chosenOnes.size() == 1}">
-                <span class="skills" th:text="'Todays chosen one is:'"></span>
-
-                <div class="chosenOnes">
-                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-                    <span th:text="${chosenOnes[0].login}"></span>
-                    <span th:text="'(' + ${#dates.format(chosenOnes[0].lastCall, 'dd-MM-yyyy') + ')'}"></span>
-                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-                </div>
-            </div>
-
-            <div th:if="${chosenOnes.size() > 1}">
-                <span class="skills" th:text="'Todays chosen ones are'"></span>
-
-                <div class="chosenOnes" th:if="${chosenOnes.size() > 1}" th:each="chosenOne : ${chosenOnes}">
-                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-                    <span class="skills" th:text="${chosenOne.login}"></span>
-                    <span th:text="'(' + ${chosenOne.lastCall != null ? #dates.format(chosenOne.lastCall, 'dd-MM-yyyy') : 'Not call yet'} + ')'"></span>
-                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-                </div>
-            </div>
-
-            Future chosen ones:
-            <div th:each="user : ${users}">
-                <span class="skills" th:text="${user.login} + ' | Last call: ' + ${#dates.format(user.lastCall, 'dd-MM-yyyy')}"></span>
-            </div>
-        </div>
+        <!--<img class="img-fluid" src="img/profile.png" alt="">-->
+        <div th:include="/fragments/body/queue :: queue" th:remove="tag"></div>
     </div>
 </header>
 
