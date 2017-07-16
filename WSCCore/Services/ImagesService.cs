@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using WSCData.Models.Entities;
 
@@ -7,6 +9,11 @@ namespace WSCCore.Services
 {
     public class ImagesService
     {
+        private static readonly List<string> ALLOWED_EXTENSIONS = new List<string>
+        {
+            ".PNG", ".JPG", ".JPEG"
+        };
+
         public static ImageGallery SaveImages(List<HttpPostedFileBase> files)
         {
             ImageGallery gallery = new ImageGallery();
@@ -28,6 +35,22 @@ namespace WSCCore.Services
             }
 
             return gallery;
+        }
+
+        public static bool FilesAreValid(List<HttpPostedFileBase> menuImages)
+        {
+            bool ret = true;
+            foreach(var image in menuImages)
+            {
+                string fileExtension = Path.GetExtension(image.FileName);
+                if (!ALLOWED_EXTENSIONS.Contains(fileExtension.ToUpper()))
+                {
+                    ret = false;
+                    break;
+                }
+            }
+
+            return ret;
         }
     }
 }

@@ -1,18 +1,22 @@
 namespace WSCData.Migrations
 {
     using System.Data.Entity.Migrations;
+    using WSCData.Migrations.Seed;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WSCData.Models.WSCDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(WSCData.Models.WSCDbContext context)
         {
-            //var user = new ApplicationUser { UserName = "admin@gmail.com", Email = "admin@gmail.com" };
-            //var result = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().(user, "Test123!");
+            if (System.Diagnostics.Debugger.IsAttached == false)
+                System.Diagnostics.Debugger.Launch();
+
+            SeederFactory.CreateSeederFor("ROLES").Seed(context);
+            SeederFactory.CreateSeederFor("USERS").Seed(context);
         }
     }
 }

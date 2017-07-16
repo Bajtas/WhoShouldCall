@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WSCCore.Models;
 using WSCData.Models.Entities;
+using WSCSecurity.Managers;
 
 namespace WSCCore.Controllers
 {
@@ -149,8 +150,8 @@ namespace WSCCore.Controllers
         {
             if (/*ModelState.IsValid*/true)
             {
-                var user = new User { UserName = "admin@gmail.com", Email = "admin@gmail.com" };
-                var result = await UserManager.CreateAsync(user, "Test123!");
+                var user = new User { UserName = model.UserName, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

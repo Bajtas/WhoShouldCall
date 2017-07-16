@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WSCData.Models.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +20,7 @@ namespace WSCData.Models.Entities
         }
 
         public Queue Queue { get; set; }
-        public DateTime LastCall { get; set; }
+        public DateTime? LastCall { get; set; }
         public virtual List<Order> Orders { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)

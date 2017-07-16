@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using WSCData.Models;
 using WSCData.Models.Entities;
+using WSCSecurity.Managers;
 
 namespace WSCCore.Controllers
 {
@@ -28,14 +29,18 @@ namespace WSCCore.Controllers
                 order2.Date = System.DateTime.Now;
                 user.Orders.Add(order2);
 
-                Order order3 = new Order();
-                order3.FoodProvider = fp;
-                order3.Date = System.DateTime.Now;
+                Order order3 = new Order()
+                {
+                    FoodProvider = fp,
+                    Date = System.DateTime.Now
+                };
                 user.Orders.Add(order3);
 
-                Order order4 = new Order();
-                order4.FoodProvider = fp;
-                order4.Date = System.DateTime.Now;
+                Order order4 = new Order()
+                {
+                    FoodProvider = fp,
+                    Date = System.DateTime.Now
+                };
                 user.Orders.Add(order4);
 
                 ctx.SaveChanges();

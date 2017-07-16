@@ -17,6 +17,14 @@ target/
 
 ### VS ###
 *.dll
+.vs
+packages
+WSCCore/bin
+WSCData/bin
+WSCSecurity/bin
+WSCCore/obj
+WSCData/obj
+WSCSecurity/obj
 
 ### NetBeans ###
 nbproject/private/
