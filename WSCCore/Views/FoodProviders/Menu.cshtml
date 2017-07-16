@@ -1,0 +1,54 @@
+﻿@model WSCData.Models.Entities.FoodProvider
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FoodProvider</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodProviderRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FoodProviderRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodProviderRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FoodProviderRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuImagesUrls)
+        </dt>
+
+        <dd>
+            @foreach (var imagePath in Model.MenuImagesUrls)
+            {
+                <img src="@Url.Content(imagePath)" alt="Image" />
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
