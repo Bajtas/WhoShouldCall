@@ -2,6 +2,7 @@ namespace WSCData.Migrations
 {
     using System.Data.Entity.Migrations;
     using WSCData.Migrations.Seed;
+    using static WSCData.WSCConsts;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WSCData.Models.WSCDbContext>
     {
@@ -12,11 +13,17 @@ namespace WSCData.Migrations
 
         protected override void Seed(WSCData.Models.WSCDbContext context)
         {
-            if (System.Diagnostics.Debugger.IsAttached == false)
-                System.Diagnostics.Debugger.Launch();
+            DebugSeeders(false);
 
-            SeederFactory.CreateSeederFor("ROLES").Seed(context);
-            SeederFactory.CreateSeederFor("USERS").Seed(context);
+            SeederFactory.CreateSeederFor(SEEDERS.ROLES_SEEDER).Seed(context);
+            SeederFactory.CreateSeederFor(SEEDERS.USERS_SEEDER).Seed(context);
+            SeederFactory.CreateSeederFor(SEEDERS.FOOD_PROVIDERS_SEEDER).Seed(context);
+        }
+
+        private void DebugSeeders(bool debugFlag)
+        {
+            if (debugFlag && !System.Diagnostics.Debugger.IsAttached)
+                System.Diagnostics.Debugger.Launch();
         }
     }
 }

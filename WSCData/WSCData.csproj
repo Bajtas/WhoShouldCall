@@ -71,7 +71,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consts.cs" />
+    <Compile Include="Migrations\201707172048369_RelationshipAddedToFoodProvider.cs" />
+    <Compile Include="Migrations\201707172048369_RelationshipAddedToFoodProvider.Designer.cs">
+      <DependentUpon>201707172048369_RelationshipAddedToFoodProvider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DataSeeders\BasicSeeders\FoodSeeder.cs" />
+    <Compile Include="Utils\Consts.cs" />
+    <Compile Include="Exceptions\UnableToAddUserException.cs" />
     <Compile Include="Migrations\201707142304193_Init.cs" />
     <Compile Include="Migrations\201707142304193_Init.Designer.cs">
       <DependentUpon>201707142304193_Init.cs</DependentUpon>
@@ -104,13 +110,17 @@
     <Compile Include="Migrations\201707161734031_LastCallChangedToNullable.Designer.cs">
       <DependentUpon>201707161734031_LastCallChangedToNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707171824102_ChangesForSeeder.cs" />
+    <Compile Include="Migrations\201707171824102_ChangesForSeeder.Designer.cs">
+      <DependentUpon>201707171824102_ChangesForSeeder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\Seeders\FoodProvidersSeeder.cs" />
-    <Compile Include="Migrations\Seeders\IDataSeeder.cs" />
-    <Compile Include="Migrations\Seeders\QueuesSeeder.cs" />
-    <Compile Include="Migrations\Seeders\RolesSeeder.cs" />
-    <Compile Include="Migrations\Seeders\SeederFactory.cs" />
-    <Compile Include="Migrations\Seeders\UsersSeeder.cs" />
+    <Compile Include="Migrations\DataSeeders\BasicSeeders\FoodProvidersSeeder.cs" />
+    <Compile Include="Migrations\DataSeeders\IDataSeeder.cs" />
+    <Compile Include="Migrations\DataSeeders\BasicSeeders\QueuesSeeder.cs" />
+    <Compile Include="Migrations\DataSeeders\BasicSeeders\RolesSeeder.cs" />
+    <Compile Include="Migrations\DataSeeders\SeederFactory.cs" />
+    <Compile Include="Migrations\DataSeeders\BasicSeeders\UsersSeeder.cs" />
     <Compile Include="Models\Entities\Food.cs" />
     <Compile Include="Models\Entities\FoodProvider.cs" />
     <Compile Include="Models\Entities\FoodProviderRating.cs" />
@@ -156,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707161734031_LastCallChangedToNullable.resx">
       <DependentUpon>201707161734031_LastCallChangedToNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707171824102_ChangesForSeeder.resx">
+      <DependentUpon>201707171824102_ChangesForSeeder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707172048369_RelationshipAddedToFoodProvider.resx">
+      <DependentUpon>201707172048369_RelationshipAddedToFoodProvider.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
