@@ -19,8 +19,11 @@ namespace WSCData.Models.Entities
             base.UserName = userName;
         }
 
+        public bool IsCaller { get; set; }
+        public bool IsCallConfirmed { get; set; }
         public Queue Queue { get; set; }
         public DateTime? LastCall { get; set; }
+        public DateTime? LastCallBackup { get; set; }
         public virtual List<Order> Orders { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)

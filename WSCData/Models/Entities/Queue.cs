@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WSCData.Models.Entities
 {
@@ -11,8 +12,10 @@ namespace WSCData.Models.Entities
             Moderators = new List<User>();
         }
         public int Id { get; set; }
+        [Display(Name = "Queue name:")]
         public string Name { get; set; }
         public virtual List<Order> Orders { get; set; }
+        [Display(Name = "Users in queue:")]
         public virtual List<User> Users { get; set; }
         public virtual List<User> Moderators { get; set; }
 
