@@ -1,0 +1,99 @@
+﻿@using WSCCore.Services;
+@using WSCCore.Services.Queues;
+@model WSCData.Models.ViewModels.QueueDetailsViewModel
+
+@{
+    var queueCallerService = new QueueCallerService();
+    var queueUserStateManagerService = new QueueUserStateManagerService();
+}
+<div>
+    @if (queueCallerService.ThereIsStillNobodyToCall(Model.Queue))
+    {
+        <div class="alert alert-info">
+            <strong>Info!</strong> There is still no caller.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success">
+            <strong>@queueCallerService.WhosTheCaller(Model.Queue)</strong> will call :)
+        </div>
+    }
+    @if (queueCallerService.WhosTheCaller(Model.Queue) == User.Identity.Name)
+    {
+        @Html.DropDownListFor(Model => Model.FoodProviders, WSCUtils.ConvertListToSelectedList(Model.FoodProviders), "-- Select Food Provider --")
+    }
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(Model => Model.Queue.Users[0].UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Model => Model.Queue.Users[0].LastCall)
+        </th>
+        <th>
+            Favorite Food Provider
+        </th>
+        <th>
+            Is chosen one?
+        </th>
+        <th></th>
+    </tr>
+    @{  var loopCounter = 1;
+        foreach (var user in Model.Queue.Users.OrderBy(u => u.LastCall))
+        {
+        <tr>
+            <td>
+                 @loopCounter. @Html.DisplayFor(modelItem => user.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => user.LastCall) 
+                @if (user.IsCallConfirmed)
+                {
+                    @Html.Raw("<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>");
+                }
+            </td>
+            <th>
+                @UserStatisticService.GetFavoriteFoodProvidersNames(user)
+            </th>
+            <td>
+                @{
+                    if (queueUserStateManagerService.IsUserTurnToCall(Model.Queue.Id, user.UserName) && queueCallerService.ThereIsStillNobodyToCall(Model.Queue))
+                    {
+                        @Html.Raw("<b>This is the chosen one!</b>");
+                    }
+                 }
+            </td>
+            <td>
+                @if(User.IsInRole("Moderator") && WSCUtils.IsUserInModeratorsGroup(Model.Queue.Moderators, User.Identity.Name) || User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "EditUser", new { id = user.UserName }); @:|
+                    /*@Html.ActionLink("Details", "UserDetails", new { id = user.UserName }); @:| */
+                    @Html.ActionLink("Remove", "RemoveUser", new { queueId = Model.Queue.Id, userName = user.UserName });
+
+                    if (queueUserStateManagerService.IsUserCaller(user.UserName))
+                    {
+                        @:| @Html.ActionLink("Confirm call", "ConfirmCall", new { queueId = Model.Queue.Id, userName = user.UserName })
+                    }
+
+                    if (!WSCUtils.IsUserInModeratorsGroup(Model.Queue.Moderators, user.UserName))
+                    {
+                        @:| @Html.ActionLink("Assign moderator", "SetAsModerator", new { queueId = Model.Queue.Id, userName = user.UserName })
+                    }
+                    else if (User.Identity.Name != user.UserName)
+                    {
+                        @:| @Html.ActionLink("Remove moderator", "RemoveModerator", new { queueId = Model.Queue.Id, userName = user.UserName })
+                        @:|
+                    }
+                }
+                @if (queueUserStateManagerService.CanUserBeACaller(User, user.UserName))
+                {
+                    @Html.ActionLink("Notify all that you are caller", "ImCaller", new { queueId = Model.Queue.Id, userName = user.UserName })
+                }
+            </td>
+        </tr>
+            loopCounter++;
+        }
+    }
+</table>
