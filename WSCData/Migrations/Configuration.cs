@@ -1,10 +1,9 @@
 namespace WSCData.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
     using WSCData.Migrations.Seed;
     using WSCData.Models;
-    using static WSCData.WSCConsts;
+    using static WSCData.Utils.WSCConsts;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WSCData.Models.WSCDbContext>
     {

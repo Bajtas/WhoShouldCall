@@ -20,7 +20,7 @@ namespace WSCData.Models.Entities
             }
             FoodProvider fp = obj as FoodProvider;
 
-            return Name.Equals(fp?.Name);    
+            return Id.Equals(fp?.Id);    
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using WSCData.Migrations.Seed;
 using WSCData.Models;
 using WSCData.Models.Entities;
-using static WSCData.WSCConsts;
+using static WSCData.Utils.WSCConsts;
 
 namespace WSCData.Migrations.BasicSeeders
 {

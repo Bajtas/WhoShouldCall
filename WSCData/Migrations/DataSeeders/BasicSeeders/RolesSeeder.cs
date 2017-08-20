@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Linq;
 using WSCData.Migrations.Seed;
 using WSCData.Models;
-using static WSCData.WSCConsts;
+using static WSCData.Utils.WSCConsts;
 
 namespace WSCData.Migrations.BasicSeeders
 {
